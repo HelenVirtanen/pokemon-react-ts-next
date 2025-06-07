@@ -4,8 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Bookmark, LayoutDashboard, Heart, LogIn, UserPlus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useUser } from '@auth0/nextjs-auth0';
 
 function Header() {
+    const { user, isLoading } = useUser();
+    console.log('User: ', user)
+
     const pathname = usePathname();
     
     const menu = [
@@ -52,14 +56,18 @@ function Header() {
                 ))}
             </ul>
         </nav>
-        <div className='flex items-center gap-4'>
-            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7]/15 text-[#6c5ce7] hover:bg-[#6c5ce7]/30 transition-all duration-300 ease-in-out'>
+
+        {user?.sub && !isLoading && <div></div>}
+        {!user?.sub && !isLoading && 
+            (<div className='flex items-center gap-4'>
+            <Link href='/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7]/15 text-[#6c5ce7] hover:bg-[#6c5ce7]/30 transition-all duration-300 ease-in-out'>
                 <LogIn size={20} />Login
             </Link>
-            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7] text-white hover:bg-[#6c5ce7]/90 transition-all duration-300 ease-in-out'>
+            <Link href='/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7] text-white hover:bg-[#6c5ce7]/90 transition-all duration-300 ease-in-out'>
                 <UserPlus size={20} />Sign up
             </Link>
-        </div>
+            </div>)
+        }
     </header>
   )
 }
