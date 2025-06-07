@@ -11,11 +11,11 @@ function Header() {
     const menu = [
         {
             name: "Browse",
-            link: "#",
+            link: "/",
             icon: <LayoutDashboard size={20} />
         },
         {
-            name: "Favorites",
+            name: "Favourites",
             link: "/favourites",
             icon: <Heart size={22} />
         },
@@ -40,8 +40,8 @@ function Header() {
                             className={`py-2 px-6 text-sm flex items-center gap-2 font-bold rounded-lg
                                 ${
                                     pathname === item.link
-                                    ? "bg-[#6c5ce7]/15 text-[#6c5ce7]"
-                                    : ""
+                                    ? 'bg-[#6c5ce7]/15 text-[#6c5ce7]'
+                                    : ''
                                 }
                             `}
                             >
