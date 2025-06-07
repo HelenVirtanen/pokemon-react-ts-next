@@ -1,14 +1,16 @@
 import React from "react";
+import { usePokemonData } from "./usePokemonData";
 
 const GlobalContext = React.createContext();
 
 // children = entire application
 export const GlobalContextProvider = ({ children }) => {
-const [state, setState] = React.useState();
+  const { loading, fetchPokemon } = usePokemonData();
+
   console.log("GlobalContextProvider");
 
   return (
-    <GlobalContext.Provider value={{ state, setState }}>
+    <GlobalContext.Provider value={{ loading, fetchPokemon }}>
       {children}
     </GlobalContext.Provider>
   );
