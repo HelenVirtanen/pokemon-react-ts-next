@@ -28,7 +28,7 @@ function Header() {
 
   return (
     <header className="min-h-[10vh] px-16 py-6 w-full bg-white flex justify-between items-center shadow-sm">
-        <Link href="#">
+        <Link href="/">
           <Image src={'/pokemon--logo.png'} alt='Pokemon logo' width={120} height={90} />
         </Link >
         <nav>
@@ -53,11 +53,11 @@ function Header() {
             </ul>
         </nav>
         <div className='flex items-center gap-4'>
-            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7]/15 text-[#6c5ce7] hover:bg-[#6c5ce7]/30 transition-all duration-300 ease-in-out'>Login
-                <LogIn size={20} />
+            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7]/15 text-[#6c5ce7] hover:bg-[#6c5ce7]/30 transition-all duration-300 ease-in-out'>
+                <LogIn size={20} />Login
             </Link>
-            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7] text-white hover:bg-[#6c5ce7]/90 transition-all duration-300 ease-in-out'>Sign up
-                <UserPlus size={20} />
+            <Link href='/api/auth/login' className='py-2 px-3 text-sm flex items-center gap-2 font-bold rounded-lg bg-[#6c5ce7] text-white hover:bg-[#6c5ce7]/90 transition-all duration-300 ease-in-out'>
+                <UserPlus size={20} />Sign up
             </Link>
         </div>
     </header>
