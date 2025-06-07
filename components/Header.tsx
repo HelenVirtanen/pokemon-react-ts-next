@@ -8,6 +8,7 @@ import {
   Heart,
   LogIn,
   UserPlus,
+  LogOut,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -23,7 +24,6 @@ import {
 
 function Header() {
   const { user, isLoading } = useUser();
-  console.log("User: ", user);
 
   const pathname = usePathname();
 
@@ -96,13 +96,13 @@ function Header() {
                 />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="w-[160px]">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer"
+              onClick={() => window.location.href= "/auth/logout"}>
+                <LogOut />
+                Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
