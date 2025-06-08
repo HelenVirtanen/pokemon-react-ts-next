@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-  <main>
+  <main className='bg-amber-200'>
     <Header />
 
     <section>

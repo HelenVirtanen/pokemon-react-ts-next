@@ -54,7 +54,7 @@ export const usePokemonData = () => {
       );
       
       setLoading(false);
-      
+
       setPokemonListDetails(details);
 
       //preserve the original pokemon list;
