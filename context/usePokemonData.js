@@ -78,6 +78,7 @@ export const usePokemonData = () => {
   return {
     fetchPokemon,
     loading,
-    pokemonList
+    pokemonList,
+    pokemonListDetails
   };
 };
