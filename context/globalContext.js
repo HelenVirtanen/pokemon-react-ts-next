@@ -5,12 +5,20 @@ const GlobalContext = React.createContext();
 
 // children = entire application
 export const GlobalContextProvider = ({ children }) => {
-  const { loading, fetchPokemon } = usePokemonData();
+  const {
+    loading,
+    fetchPokemon,
+  } = usePokemonData();
 
   console.log("GlobalContextProvider");
 
   return (
-    <GlobalContext.Provider value={{ loading, fetchPokemon }}>
+    <GlobalContext.Provider
+      value={{
+        loading,
+        fetchPokemon,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );
