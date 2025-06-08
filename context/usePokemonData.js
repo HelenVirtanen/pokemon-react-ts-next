@@ -27,7 +27,6 @@ export const usePokemonData = () => {
       setCurrentPage(page);
 
       console.log(res.data.results);
-      console.log("page: ", page);
     } catch (error) {
       console.error(error);
     }
@@ -79,5 +78,6 @@ export const usePokemonData = () => {
   return {
     fetchPokemon,
     loading,
+    pokemonList
   };
 };
