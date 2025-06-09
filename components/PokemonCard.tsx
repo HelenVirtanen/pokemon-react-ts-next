@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useGlobalContext } from "../context/globalContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { typeColor } from "../utils/colors";
 
 interface PokemonCardProps {
   pokemon: any;
@@ -49,7 +50,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
         </div>
         <button
           className={`p-2 w-10 h-10 bg-gray-100 text-xl text-gray-300 flex items-center justify-center rounded-full border-2 border-gray-300 hover:bg-[#2f70b7] hover:border-transparent hover:text-white transition-all duration-200 ease-in-out`}
-          onClick={() => router.push(`/pokemon/${pokemon?.name}`)}
+          onClick={() => router.push(`/pokemons/${pokemon?.name}`)}
         >
           {arrowAngleRight}
         </button>
@@ -57,8 +58,9 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
       <div className="flex gap-4">
         <div className="flex-1">
           <Image
-            src={pokemon?.sprites?.other?.["official-artwork"]?.front_default || 
-                pokemon?.sprites?.front_default
+            src={
+              pokemon?.sprites?.other?.["official-artwork"]?.front_default ||
+              pokemon?.sprites?.front_default
             }
             alt="Pokemon image"
             className="object-contain"
@@ -67,20 +69,34 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           />
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
-            <div className="mb-2 flex gap-2">
-                <p className="text-xs uppercase font-semibold text-gray-500">{pokemon?.height}m</p>
-                <p className="text-xs uppercase font-semibold text-gray-500">{pokemon?.weight}kg</p>
-                <p className="text-xs uppercase font-semibold text-gray-500">{pokemon?.base_experience}XP</p>
-            </div>
-            <h2 className="text-2xl text-[#2f70b7] capitalize font-bold text-center">
-                {pokemon?.name}
-            </h2>
-            <div className="flex justify-center gap-2">
-                {pokemon?.types?.map((type: any, index: number) => (
-                    <p key={index} className="text-xs uppercase font-semibold text-black px-5 py-1 rounded-lg">{type.type.name}</p>
-                ))}
-            </div>
-            <div><p>{pokemon?.id}</p></div>
+          <div className="mb-2 flex gap-2">
+            <p className="text-xs uppercase font-semibold text-gray-500">
+              {pokemon?.height}m
+            </p>
+            <p className="text-xs uppercase font-semibold text-gray-500">
+              {pokemon?.weight}kg
+            </p>
+            <p className="text-xs uppercase font-semibold text-gray-500">
+              {pokemon?.base_experience}XP
+            </p>
+          </div>
+          <h2 className="text-2xl text-[#2f70b7] capitalize font-bold text-center">
+            {pokemon?.name}
+          </h2>
+          <div className="flex justify-center gap-2">
+            {pokemon?.types?.map((type: any, index: number) => (
+              <p
+                key={index}
+                className="text-xs uppercase font-semibold text-black px-5 py-1 rounded-full"
+                style={{ backgroundColor: typeColor[type?.type?.name] }}
+              >
+                {type.type.name}
+              </p>
+            ))}
+          </div>
+          <div>
+            <p>{pokemon?.id}</p>
+          </div>
         </div>
       </div>
     </div>

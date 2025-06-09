@@ -48,11 +48,10 @@ export const usePokemonData = () => {
         pokemonList.map(async (pokemon) => {
           const res = await axios.get(pokemon.url);
 
-          
           return res.data;
         })
       );
-      
+
       setLoading(false);
 
       setPokemonListDetails(details);
@@ -82,6 +81,6 @@ export const usePokemonData = () => {
     fetchPokemon,
     loading,
     pokemonList,
-    pokemonListDetails
+    pokemonListDetails,
   };
 };
