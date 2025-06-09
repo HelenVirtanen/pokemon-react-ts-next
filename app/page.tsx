@@ -10,7 +10,7 @@ export default function Home() {
   const { pokemonListDetails, loading } = useGlobalContext();
 
   if (loading) {
-    return <div>Loading pokemons...</div>
+    return <div><p>Loading pokemons...</p></div>
   }
 
   return (
