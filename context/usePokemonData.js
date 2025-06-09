@@ -62,7 +62,7 @@ export const usePokemonData = () => {
     }
   }, [pokemonList]);
 
-  const fetchPokemonByName = async (name) => {
+  const fetchPokemonByName = useCallback(async (name) => {
     setLoading(true);
     try {  
       const res = await axios.get(`${pokemonBaseUrl}/pokemon/${name}`);
@@ -73,7 +73,7 @@ export const usePokemonData = () => {
     } catch (error) {
       console.log("Error fetching pokemon by name", error);
     }
-  }
+  }, []);
 
   useEffect(() => {
     fetchPokemon();
@@ -86,14 +86,12 @@ export const usePokemonData = () => {
     }
   }, [pokemonList, fetchPokemonDetails]);
 
-  console.log("Pokemon List: ", pokemonList);
-  console.log("Pokemon Details: ", pokemonListDetails);
-
   return {
     fetchPokemon,
     loading,
     pokemonList,
     pokemonListDetails,
-    fetchPokemonByName
+    fetchPokemonByName,
+    activePokemon
   };
 };

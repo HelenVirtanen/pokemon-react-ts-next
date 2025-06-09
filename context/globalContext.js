@@ -10,7 +10,8 @@ export const GlobalContextProvider = ({ children }) => {
     fetchPokemon,
     pokemonList,
     pokemonListDetails,
-    fetchPokemonByName
+    fetchPokemonByName,
+    activePokemon
   } = usePokemonData();
 
   console.log("GlobalContextProvider");
@@ -22,7 +23,8 @@ export const GlobalContextProvider = ({ children }) => {
         fetchPokemon,
         pokemonList,
         pokemonListDetails,
-        fetchPokemonByName
+        fetchPokemonByName,
+        activePokemon
       }}
     >
       {children}
