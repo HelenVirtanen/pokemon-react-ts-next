@@ -57,7 +57,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
       <div className="flex gap-4">
         <div className="flex-1>">
           <Image
-            src={pokemon?.sprites?.other?.home?.front_default}
+            src={pokemon?.sprites?.other?.["official-artwork"]?.front_default}
             alt="Pokemon image"
             className="object-contain"
             width={200}
