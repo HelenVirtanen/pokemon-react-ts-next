@@ -119,6 +119,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             src={`/icons/${activePokemon?.types[0].type.name}.svg`}
             width={700}
             height={700}
+            style={{ width: "700", height: "auto" }}
             alt="Icon of pokemon type"
             className="absolute opacity-15 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
           />
@@ -134,6 +135,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             alt="pokemon image"
             width={500}
             height={500}
+            style={{ width: "500", height: "auto" }}
             className="relative z-10 filter drop-shadow-lg"
           />
         </div>

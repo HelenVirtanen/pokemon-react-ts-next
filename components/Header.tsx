@@ -55,6 +55,7 @@ function Header() {
           alt="Pokemon logo"
           width={120}
           height={90}
+          style={{ width: "120", height: "auto" }}
         />
       </Link>
       <nav>
