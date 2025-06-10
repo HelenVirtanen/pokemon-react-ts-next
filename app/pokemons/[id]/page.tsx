@@ -80,7 +80,16 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                 ))}
               </ul>
             </div>
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl font-bold">Types</h2>
+              <ul className="flex flex-wrap gap-2">
+                {activePokemon?.types.map((type:any, index:number) => (
+                  <li key={index} className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-[#2e286b] text-white rounded-full">{type.type.name}</li>
+                ))}
+              </ul>
+            </div>
           </div>
+          
         </div>
 
         <div className="relative flex justify-center items-center">
