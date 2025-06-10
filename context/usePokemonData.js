@@ -31,14 +31,14 @@ export const usePokemonData = () => {
     }
   };
 
-  const fetchAllPokemon = useCallback(async () => {
-    try {
-      const res = await axios.get(`${pokemonBaseUrl}/pokemon?limit=1302`);
-      setAllPokemons(res.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  // const fetchAllPokemon = async () => {
+  //   try {
+  //     const res = await axios.get(`${pokemonBaseUrl}/pokemon?limit=1302`);
+  //     setAllPokemons(res.data.results);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const fetchPokemonDetails = useCallback(async () => {
     setLoading(true);
@@ -77,7 +77,7 @@ export const usePokemonData = () => {
 
   useEffect(() => {
     fetchPokemon();
-    fetchAllPokemon();
+    //fetchAllPokemon();
   }, []);
 
   useEffect(() => {

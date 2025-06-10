@@ -6,6 +6,7 @@ import { useGlobalContext } from "../../../context/globalContext";
 import Image from "next/image";
 import { typeColor } from "../../../utils/colors";
 import { volumeHigh } from "../../../utils/icons";
+import { Ruler, Weight, Star } from "lucide-react";
 
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState<string | null>(null);
@@ -75,16 +76,26 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold">Abilities</h2>
               <ul className="flex flex-wrap gap-2">
-                {activePokemon?.abilities.map((ability:any, index:number) => (
-                  <li key={index} className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-white text-[#4203b2] rounded-full">{ability.ability.name}</li>
+                {activePokemon?.abilities.map((ability: any, index: number) => (
+                  <li
+                    key={index}
+                    className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-white text-[#4203b2] rounded-full"
+                  >
+                    {ability.ability.name}
+                  </li>
                 ))}
               </ul>
             </div>
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold">Types</h2>
               <ul className="flex flex-wrap gap-2">
-                {activePokemon?.types.map((type:any, index:number) => (
-                  <li key={index} className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-[#2e286b] text-white rounded-full">{type.type.name}</li>
+                {activePokemon?.types.map((type: any, index: number) => (
+                  <li
+                    key={index}
+                    className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-[#2e286b] text-white rounded-full"
+                  >
+                    {type.type.name}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -93,7 +104,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="flex flex-col gap-2">
             <h2 className="text-2xl font-bold">Base stats</h2>
             <ul className="flex flex-col gap-4">
-              {activePokemon?.stats.map((stat:any, index:number) => (
+              {activePokemon?.stats.map((stat: any, index: number) => (
                 <li key={index} className="flex flex-col gap-1">
                   <div className="flex items-center gap-4">
                     <span className="capitalize">{stat.stat.name}</span>
@@ -101,17 +112,39 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                   </div>
 
                   <div className="w-full h-5 bg-white/35 rounded-md overflow-hidden mt-1">
-                    <div className={`h-full rounded-md bg-white`} style={
-                      {width: `${(stat.base_stat / 200) * 100}%`}
-                    }></div>
+                    <div
+                      className={`h-full rounded-md bg-white`}
+                      style={{ width: `${(stat.base_stat / 200) * 100}%` }}
+                    ></div>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div></div>
-          
+          <div className="mt-2 flex gap-4">
+            <p className="p-4 flex flex-col items-center justify-center uppercase text-gray-600 font-bold bg-white rounded-lg">
+              <span className="text-sm flex items-center gap-2">
+                <Ruler size={18} />
+                Height
+              </span>
+              {activePokemon?.height} m
+            </p>
+            <p className="p-4 flex flex-col items-center justify-center uppercase text-gray-600 font-bold bg-white rounded-lg">
+              <span className="text-sm flex items-center gap-2">
+                <Weight size={18} />
+                Weight
+              </span>
+              {activePokemon?.weight} kg
+            </p>
+            <p className="p-4 flex flex-col items-center justify-center uppercase text-gray-600 font-bold bg-white rounded-lg">
+              <span className="text-sm flex items-center gap-2">
+                <Star size={18} />
+                Base Exp
+              </span>
+              {activePokemon?.base_experience} xp
+            </p>
+          </div>
         </div>
 
         <div className="relative flex justify-center items-center">
@@ -119,23 +152,23 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             src={`/icons/${activePokemon?.types[0].type.name}.svg`}
             width={700}
             height={700}
-            style={{ width: "700", height: "auto" }}
+            style={{ width: "700px", height: "auto" }}
             alt="Icon of pokemon type"
             className="absolute opacity-15 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
           />
 
           <Image
             src={
-              activePokemon?.sprites?.other["official-artwork"]
-                ?.front_default ||
+              activePokemon?.sprites?.other["official-artwork"]?.front_default ||
               activePokemon?.sprites?.other?.home?.front_default ||
               activePokemon?.sprites?.other?.home?.front_shiny ||
-              activePokemon?.sprites?.other["dream_world"]?.front_default || null
+              activePokemon?.sprites?.other["dream_world"]?.front_default ||
+              null
             }
             alt="pokemon image"
             width={500}
             height={500}
-            style={{ width: "500", height: "auto" }}
+            style={{ width: "500px", height: "auto" }}
             className="relative z-10 filter drop-shadow-lg"
           />
         </div>
