@@ -48,7 +48,7 @@ function Header() {
   if (isLoading) return null;
 
   return (
-    <header className="min-h-[10vh] px-16 py-6 w-full bg-white flex justify-between items-center shadow-sm mb-8">
+    <header className="min-h-[10vh] px-16 py-6 w-full bg-white flex justify-between items-center shadow-sm">
       <Link href="/">
         <Image
           src={"/pokemon--logo.png"}

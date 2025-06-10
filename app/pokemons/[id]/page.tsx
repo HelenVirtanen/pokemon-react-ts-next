@@ -62,6 +62,9 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                 {volumeHigh} New cry
               </button>
             </div>
+            <h1 className="text-6xl font-bold capitalize text-[#4203b2] drop-shadow-sm">
+              {activePokemon?.name}
+            </h1>
           </div>
         </div>
         <div className="relative flex justify-center items-center">
