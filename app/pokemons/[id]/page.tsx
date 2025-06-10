@@ -74,7 +74,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex flex-col gap-2">
               <h2 className="text-2xl font-bold">Abilities</h2>
-              <ul className="flex gap-2">
+              <ul className="flex flex-wrap gap-2">
                 {activePokemon?.abilities.map((ability:any, index:number) => (
                   <li key={index} className="px-4 py-2 flex items-center gap-2 text-sm font-bold bg-white text-[#4203b2] rounded-full">{ability.ability.name}</li>
                 ))}
@@ -89,6 +89,28 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
               </ul>
             </div>
           </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl font-bold">Base stats</h2>
+            <ul className="flex flex-col gap-4">
+              {activePokemon?.stats.map((stat:any, index:number) => (
+                <li key={index} className="flex flex-col gap-1">
+                  <div className="flex items-center gap-4">
+                    <span className="capitalize">{stat.stat.name}</span>
+                    <span className="font-bold">{stat.base_stat}</span>
+                  </div>
+
+                  <div className="w-full h-5 bg-white/35 rounded-md overflow-hidden mt-1">
+                    <div className={`h-full rounded-md bg-white`} style={
+                      {width: `${(stat.base_stat / 200) * 100}%`}
+                    }></div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div></div>
           
         </div>
 
@@ -107,7 +129,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
                 ?.front_default ||
               activePokemon?.sprites?.other?.home?.front_default ||
               activePokemon?.sprites?.other?.home?.front_shiny ||
-              activePokemon?.sprites?.other["dream_world"]?.front_default
+              activePokemon?.sprites?.other["dream_world"]?.front_default || null
             }
             alt="pokemon image"
             width={500}
