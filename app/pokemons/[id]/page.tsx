@@ -32,7 +32,7 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
   return (
     <main>
       <Header />
-      <section
+      {!loading && <section
         className="px-16 py-8 min-h-[90vh] grid grid-cols-1 md:grid-cols-2 gap-8"
         style={{
           backgroundColor:
@@ -172,7 +172,8 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
             className="relative z-10 filter drop-shadow-lg"
           />
         </div>
-      </section>
+      </section>}
+      {loading && <div className="h-[80vh] flex justify-center items-center"><div className="loader"></div></div>}
     </main>
   );
 }
