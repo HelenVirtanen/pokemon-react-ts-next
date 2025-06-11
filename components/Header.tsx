@@ -64,7 +64,7 @@ function Header() {
             <li key={index}>
               <Link
                 href={item.link}
-                className={`py-2 px-6 text-sm flex items-center gap-2 font-bold rounded-lg
+                className={`py-2 px-6 text-md flex items-center gap-2 font-bold rounded-lg
                                 ${
                                   pathname === item.link
                                     ? "bg-[#ff9800]/15 text-[#ff9800]"
@@ -85,7 +85,7 @@ function Header() {
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger className="outline-none border-none">
               <div className="bg-[#ff9800]/15 flex items-center justify-center gap-2 rounded-lg cursor-pointer">
-                <span className="pl-2 text-[#ff9800] text-sm font-bold">
+                <span className="pl-2 text-[#ff9800] text-md font-bold">
                   {user?.name || "User"}
                 </span>
                 <Image

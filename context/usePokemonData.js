@@ -15,9 +15,9 @@ export const usePokemonData = () => {
   const fetchPokemon = async (page = 1) => {
     setLoading(true);
     try {
-      const offset = (page - 1) * 50;
+      const offset = (page - 1) * 20;
       const res = await axios.get(
-        `${pokemonBaseUrl}/pokemon?limit=10&offset=${offset}`
+        `${pokemonBaseUrl}/pokemon?limit=20&offset=${offset}`
       );
 
       setLoading(false);
@@ -31,14 +31,14 @@ export const usePokemonData = () => {
     }
   };
 
-  // const fetchAllPokemon = async () => {
-  //   try {
-  //     const res = await axios.get(`${pokemonBaseUrl}/pokemon?limit=1302`);
-  //     setAllPokemons(res.data.results);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const fetchAllPokemon = async () => {
+    try {
+      const res = await axios.get(`${pokemonBaseUrl}/pokemon?limit=1302`);
+      setAllPokemons(res.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchPokemonDetails = useCallback(async () => {
     setLoading(true);
@@ -75,9 +75,13 @@ export const usePokemonData = () => {
     }
   }, []);
 
+  const loadMore = () => {
+    fetchPokemon(currentPage + 1);
+  };
+
   useEffect(() => {
     fetchPokemon();
-    //fetchAllPokemon();
+    fetchAllPokemon();
   }, []);
 
   useEffect(() => {
@@ -92,6 +96,8 @@ export const usePokemonData = () => {
     pokemonList,
     pokemonListDetails,
     fetchPokemonByName,
-    activePokemon
+    activePokemon,
+    allPokemons,
+    loadMore,
   };
 };
