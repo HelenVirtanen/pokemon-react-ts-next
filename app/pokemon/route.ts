@@ -3,7 +3,6 @@ import prisma from "../../utils/connect";
 
 export async function POST(req: NextRequest) {
   try {  
-
     const {userId, pokemon, action} = await req.json();
 
     // validate the action
@@ -14,7 +13,7 @@ export async function POST(req: NextRequest) {
     // find or create a new user 
     let user = await prisma.user.findUnique({
       where: {auth0Id: userId },
-    }) 
+    });
 
     if (!user) {
       user = await prisma.user.create({
@@ -23,7 +22,7 @@ export async function POST(req: NextRequest) {
           bookmarks: [],
           liked: []
         }
-      })
+      });
     }
 
     // determine the action to take
@@ -44,7 +43,7 @@ export async function POST(req: NextRequest) {
       data: {
       [fieldToUpdate]: updatedItems,
       }
-    })
+    });
 
 
     return NextResponse.json({
@@ -56,7 +55,7 @@ export async function POST(req: NextRequest) {
     console.log("Error in linking of Bookmarking", error);
 
     return NextResponse.json(
-      { message: "An error has occured while processing your request" },
+      { message: "An error has occured while processing your request", error },
       { status: 500 }
     );
   }

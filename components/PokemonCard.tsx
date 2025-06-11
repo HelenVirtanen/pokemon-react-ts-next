@@ -1,5 +1,5 @@
 import React from "react";
-import { heartEmpty, bookmarkEmpty, arrowAngleRight } from "../utils/icons";
+import { heartEmpty, bookmarkEmpty, heartFilled, bookmarkFilled, arrowAngleRight } from "../utils/icons";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useGlobalContext } from "../context/globalContext";
 import { useRouter } from "next/navigation";
@@ -33,8 +33,17 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
                    : "text-gray-300 border-gray-300"
                }
               `}
+            onClick={()=> {
+              if(user?.sub) {
+                setLiked((prev:boolean) => !prev);
+                performAction(user?.sub, pokemon?.name, "like");
+                console.log("LIKED");
+              } else {
+                router.push("/auth/login")
+              }
+            }}
           >
-            {heartEmpty}
+            {liked ? heartFilled : heartEmpty}
           </button>
           <button
             className={`p-2 w-10 h-10  bg-orange-100 text-xl flex items-center justify-center rounded-full border-2 border-gray-300
@@ -44,8 +53,16 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
                    : "text-gray-300 border-gray-300"
                }
               `}
+              onClick={()=> {
+              if(user?.sub) {
+                setBookmarked((prev:boolean) => !prev);
+                performAction(user?.sub, pokemon?.name, "bookmark");
+              } else {
+                router.push("/auth/login")
+              }
+            }}
           >
-            {bookmarkEmpty}
+            {bookmarked ? bookmarkFilled : bookmarkEmpty}
           </button>
         </div>
         <button

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { usePokemonData } from "./usePokemonData";
+import { useUserData } from "./useUserData";
+import { useUser } from "@auth0/nextjs-auth0";
 
 const GlobalContext = React.createContext();
 
 // children = entire application
 export const GlobalContextProvider = ({ children }) => {
+  const { user } = useUser();
   const {
     loading,
     fetchPokemon,
@@ -15,6 +18,12 @@ export const GlobalContextProvider = ({ children }) => {
     loadMore,
     allPokemons
   } = usePokemonData();
+
+  const { userDetails, performAction, fetchUserDetails } = useUserData();
+
+  useEffect(() => {
+    if (user) fetchUserDetails();
+  }, [user]);
 
   console.log("GlobalContextProvider");
 
@@ -28,7 +37,9 @@ export const GlobalContextProvider = ({ children }) => {
         fetchPokemonByName,
         activePokemon,
         loadMore,
-        allPokemons
+        allPokemons,
+        userDetails,
+        performAction,
       }}
     >
       {children}
