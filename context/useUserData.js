@@ -3,8 +3,8 @@ import axios from "axios";
 import { useUser } from "@auth0/nextjs-auth0";
 
 export const useUserData = () => {
-  const [userDetails, setUserDetails] = useState(null);
   const {user} = useUser();
+  const [userDetails, setUserDetails] = useState(null);
 
   const fetchUserDetails = async () => {
     if (!user) return;
@@ -24,6 +24,7 @@ export const useUserData = () => {
         pokemon,
         action,
       });
+      fetchUserDetails();
     } catch (error) {
       console.log("Error in performAction", error);
     }

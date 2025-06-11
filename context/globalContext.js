@@ -25,8 +25,6 @@ export const GlobalContextProvider = ({ children }) => {
     if (user) fetchUserDetails();
   }, [user]);
 
-  console.log("GlobalContextProvider");
-
   return (
     <GlobalContext.Provider
       value={{
