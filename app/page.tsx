@@ -6,6 +6,7 @@ import { useGlobalContext } from "../context/globalContext";
 import { useUser } from "@auth0/nextjs-auth0";
 import { arrowAngleDown } from "../utils/icons";
 import SearchForm from "../components/SearchForm";
+import Filters from "../components/Filters"; 
 
 export default function Home() {
   const { isLoading } = useUser();
@@ -17,6 +18,10 @@ export default function Home() {
 
       <section className="mt-10 flex items-center justify-center">
         <SearchForm />
+      </section>
+
+      <section>
+        <Filters />
       </section>
 
       <section className="min-h-[91vh] mt-10">

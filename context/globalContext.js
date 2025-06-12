@@ -18,7 +18,10 @@ export const GlobalContextProvider = ({ children }) => {
     loadMore,
     allPokemons,
     searchQuery,
-    handleSearchChange
+    handleSearchChange,
+    handleFilterChange,
+    filters,
+    clearFilters
   } = usePokemonData();
 
   const { userDetails, performAction, fetchUserDetails } = useUserData();
@@ -49,7 +52,10 @@ export const GlobalContextProvider = ({ children }) => {
         userDetails,
         performAction,
         searchQuery,
-        handleSearchChange
+        handleSearchChange,
+        handleFilterChange,
+        filters,
+        clearFilters
       }}
     >
       {children}

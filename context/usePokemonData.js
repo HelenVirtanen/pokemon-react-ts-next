@@ -10,9 +10,18 @@ export const usePokemonData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [allPokemons, setAllPokemons] = useState([]);
   const [pokemonListDetails, setPokemonListDetails] = useState([]);
-  const [originalPokemonListDetails, setOriginalPokemonListDetails] = useState([]);
+  const [originalPokemonListDetails, setOriginalPokemonListDetails] = useState(
+    []
+  );
   const [activePokemon, setActivePokemon] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState({
+    type: "",
+    ability: "",
+    weight: "",
+    height: "",
+    sortOrder: "",
+  });
 
   const fetchPokemon = async (page = 1) => {
     setLoading(true);
@@ -26,7 +35,6 @@ export const usePokemonData = () => {
 
       setPokemonList((prev) => [...prev, ...res.data.results]);
       setCurrentPage(page);
-
     } catch (error) {
       console.error(error);
     }
@@ -65,7 +73,7 @@ export const usePokemonData = () => {
 
   const fetchPokemonByName = useCallback(async (name) => {
     setLoading(true);
-    try {  
+    try {
       const res = await axios.get(`${pokemonBaseUrl}/pokemon/${name}`);
       setLoading(false);
       setActivePokemon(res.data);
@@ -76,7 +84,7 @@ export const usePokemonData = () => {
     }
   }, []);
 
-  // search pokemon by name 
+  // search pokemon by name
   const searchPokemonByName = async (query) => {
     if (!query) {
       setSearchQuery("");
@@ -95,11 +103,11 @@ export const usePokemonData = () => {
     setLoading(true);
 
     const filteredPokemon = allPokemons.filter((pokemon) => {
-        return pokemon.name.toLowerCase().includes(query.toLowerCase());
-      })
+      return pokemon.name.toLowerCase().includes(query.toLowerCase());
+    });
 
     try {
-      // fetch details for filtered pokemon 
+      // fetch details for filtered pokemon
       const filtered = await Promise.all(
         filteredPokemon.map(async (pokemon) => {
           const res = await axios.get(pokemon.url);
@@ -110,23 +118,104 @@ export const usePokemonData = () => {
       setLoading(false);
       setPokemonListDetails(filtered);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const debouncedSearch = _.debounce((value) => {
-    searchPokemonByName(value);  
-  }, 500);
+  // filter pokemons
+  const filterPokemon = () => {
+    const { type, ability, weight, height, sortOrder } = filters;
+    const query = searchQuery.toLowerCase();
+
+    let filteredPokemon = originalPokemonListDetails;
+
+    //apply the type filter
+    if (type) {
+      filteredPokemon = filteredPokemon.filter((pokemon) => {
+        return pokemon.types.some((t) => t.type.name === type);
+      });
+    }
+
+    //apply the ability filter
+    if (ability) {
+      filteredPokemon = filteredPokemon.filter((pokemon) => {
+        return pokemon.abilities.some(
+          (a) => a.ability.name === ability
+        );
+      });
+    }
+
+    //apply the weight filter
+    if (weight) {
+      filteredPokemon = filteredPokemon.filter((pokemon) => {
+        return pokemon.weight === parseInt(weight);
+      });
+    }
+
+    //apply the height filter
+    if (height) {
+      filteredPokemon = filteredPokemon.filter((pokemon) => {
+        return pokemon.height >= height;
+      });
+    }
+
+    //apply the searcg query
+    if (query) {
+      filteredPokemon = filteredPokemon.filter((pokemon) => {
+        return pokemon.name.toLowerCase().includes(query);
+      });
+    }
+
+    //apply the sort order
+    if (sortOrder) {
+      filteredPokemon =
+        sortOrder === "asc"
+          ? [...filteredPokemon].sort((a, b) => {
+              return a.name.localeCompare(b.name, undefined, {
+                sensitivity: "base",
+              });
+            })
+          : [...filteredPokemon].sort((a, b) => {
+              return b.name.localeCompare(a.name, undefined, {
+                sensitivity: "base",
+              });
+            });
+    }
+
+    setPokemonListDetails(filteredPokemon);
+  };
 
   const loadMore = () => {
     fetchPokemon(currentPage + 1);
   };
 
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value}));
+  }
+
+  const clearFilters = () => {
+    setFilters({
+      type: "",
+      ability: "",
+      weight: "",
+      height: "",
+      sortOrder: "",
+    })
+    setSearchQuery("");
+    setPokemonListDetails(originalPokemonListDetails);
+  }
+
+  const debouncedSearch = _.debounce((value) => {
+    setFilters((prev) => ({...prev, query: value }));
+    filterPokemon();
+    searchPokemonByName(value);
+  }, 500);
+
   const handleSearchChange = (event) => {
     const value = event.target.value;
     setSearchQuery(value);
     debouncedSearch(value);
-  }
+  };
 
   useEffect(() => {
     fetchPokemon();
@@ -139,6 +228,10 @@ export const usePokemonData = () => {
     }
   }, [pokemonList, fetchPokemonDetails]);
 
+  useEffect(() => {
+    filterPokemon();
+  }, [filters, searchQuery])
+
   return {
     fetchPokemon,
     loading,
@@ -149,6 +242,9 @@ export const usePokemonData = () => {
     allPokemons,
     loadMore,
     searchQuery,
-    handleSearchChange
+    handleSearchChange,
+    handleFilterChange,
+    filters,
+    clearFilters
   };
 };
