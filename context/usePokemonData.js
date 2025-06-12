@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import _ from "lodash";
 
 const pokemonBaseUrl = "https://pokeapi.co/api/v2/";
 
@@ -11,6 +12,7 @@ export const usePokemonData = () => {
   const [pokemonListDetails, setPokemonListDetails] = useState([]);
   const [originalPokemonListDetails, setOriginalPokemonListDetails] = useState([]);
   const [activePokemon, setActivePokemon] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchPokemon = async (page = 1) => {
     setLoading(true);
@@ -75,9 +77,59 @@ export const usePokemonData = () => {
     }
   }, []);
 
+  // search pokemon by name 
+  const searchPokemonByName = async (query) => {
+    if (!query) {
+      setSearchQuery("");
+
+      const details = await Promise.all(
+        pokemonList.map(async (pokemon) => {
+          const res = await axios.get(pokemon.url);
+          console.log("URL", url);
+          return res.data;
+        })
+      );
+
+      setPokemonListDetails(details);
+      console.log("DETAILS", pokemonListDetails);
+      return;
+    }
+
+    setLoading(true);
+
+    const filteredPokemon = allPokemons.filter((pokemon) => {
+        return pokemon.name.toLowerCase().includes(query.toLowerCase());
+      })
+
+    try {
+      // fetch details for filtered pokemon 
+      const filtered = await Promise.all(
+        filteredPokemon.map(async (pokemon) => {
+          const res = await axios.get(pokemon.url);
+          return res.data;
+        })
+      );
+
+      setLoading(false);
+      setPokemonListDetails(filtered);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const debouncedSearch = _.debounce((value) => {
+    searchPokemonByName(value);  
+  }, 500);
+
   const loadMore = () => {
     fetchPokemon(currentPage + 1);
   };
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchQuery(value);
+    debouncedSearch(value);
+  }
 
   useEffect(() => {
     fetchPokemon();
@@ -99,5 +151,6 @@ export const usePokemonData = () => {
     activePokemon,
     allPokemons,
     loadMore,
+    handleSearchChange
   };
 };

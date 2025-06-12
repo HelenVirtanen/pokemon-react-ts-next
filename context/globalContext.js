@@ -17,6 +17,8 @@ export const GlobalContextProvider = ({ children }) => {
     activePokemon,
     loadMore,
     allPokemons,
+    searchQuery,
+    handleSearchChange
   } = usePokemonData();
 
   const { userDetails, performAction, fetchUserDetails } = useUserData();
@@ -30,9 +32,9 @@ export const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (userDetails) {
-    console.log("Updated user details in global context:", userDetails);
-  }
-}, [userDetails]);
+      console.log("Updated user details in global context:", userDetails);
+    }
+  }, [userDetails]);
 
   return (
     <GlobalContext.Provider
@@ -47,6 +49,8 @@ export const GlobalContextProvider = ({ children }) => {
         allPokemons,
         userDetails,
         performAction,
+        searchQuery,
+        handleSearchChange
       }}
     >
       {children}
