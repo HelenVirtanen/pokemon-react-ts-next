@@ -28,7 +28,7 @@ export const usePokemonData = () => {
     try {
       const offset = (page - 1) * 20;
       const res = await axios.get(
-        `${pokemonBaseUrl}/pokemon?limit=20&offset=${offset}`
+        `${pokemonBaseUrl}/pokemon?offset=${offset}&limit=20`
       );
 
       setLoading(false);
