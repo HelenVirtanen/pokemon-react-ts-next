@@ -26,7 +26,7 @@ export default function Home() {
       </section>
       
       {pokemonListDetails.length < allPokemons.length && (
-        <div className="mt-4 mb-10 flex items-center justify-center">
+        <div className="mt-4 pb-10 flex items-center justify-center">
           <button onClick={loadMore} className="py-2 px-6 flex items-center gap-2 bg-[#2f70b7] text-white rounded-full shadow-md font-medium
             hover:bg-[#562fb7] transition-all duration-200 ease-in-out">
             <span className="text-left text-lg">{arrowAngleDown}</span>Load More

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { heartEmpty, bookmarkEmpty, heartFilled, bookmarkFilled, arrowAngleRight } from "../utils/icons";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useGlobalContext } from "../context/globalContext";
@@ -18,11 +18,8 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
   const isLiked = userDetails?.user?.liked?.includes(pokemon?.name) || false;
   const isBookmarked = userDetails?.user?.bookmarks?.includes(pokemon?.name) || false;
 
-  console.log("USER DETAILS", userDetails?.user?.liked);
-  console.log("LIKED", isLiked);
-
-  const [liked, setLiked] = React.useState(isLiked);
-  const [bookmarked, setBookmarked] = React.useState(isBookmarked);
+  const [liked, setLiked] = useState(isLiked);
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
 
   useEffect(() => {
     setLiked(userDetails?.user?.liked?.includes(pokemon?.name) || false);
