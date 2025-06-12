@@ -3,7 +3,7 @@ import axios from "axios";
 import { useUser } from "@auth0/nextjs-auth0";
 
 export const useUserData = () => {
-  const {user} = useUser();
+  const { user } = useUser();
   const [userDetails, setUserDetails] = useState(null);
 
   const fetchUserDetails = async () => {
@@ -12,21 +12,43 @@ export const useUserData = () => {
     try {
       const res = await axios.get(`/user/${user.sub}`);
       setUserDetails(res.data);
-      console.log("Fetched User Details Res DATA", userDetails, res.data);
+      console.log("Fetched User Details Res DATA",  res.data);
     } catch (error) {
       console.log("Error in fetchUserDetails", error);
     }
-  }
+  };
 
   const performAction = async (userId, pokemon, action) => {
-    try {  
+    try {
+      setUserDetails((prev) => {
+        const updatedBookmarks =
+          action === "bookmark"
+            ? prev.user.bookmarks.includes(pokemon)
+              ? prev.user.bookmarks.filter((p) => p !== pokemon)
+              : [...prev.user.bookmarks, pokemon]
+            : prev.user.bookmarks;
+
+      const updatedLikes =
+        action === "like"
+          ? prev.user.liked.includes(pokemon)
+            ? prev.user.liked.filter((p) => p !== pokemon)
+            : [...prev.liked, pokemon]
+          : prev.liked;
+
+          return {
+            ...prev, 
+            bookmarks: updatedBookmarks,
+            liked: updatedLikes
+          };
+        });
+
       await axios.post("/pokemon", {
         userId,
         pokemon,
         action,
       });
-      await fetchUserDetails(); 
-      console.log("User Details after perform action", userDetails);  
+      await fetchUserDetails();
+      console.log("User Details after perform action", userDetails);
     } catch (error) {
       console.log("Error in performAction", error);
       fetchUserDetails(userId);

@@ -11,11 +11,11 @@ function Page() {
   const [ loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (userDetails?.liked) {
+    if (userDetails?.user?.liked) {
       setLoading(true);
       const fetchPokemons = async () => {
         const pokemonDetails = await Promise.all(
-          userDetails.liked.map(async (pokemon: any) => {
+          userDetails.user?.liked.map(async (pokemon: any) => {
             const details = await fetchPokemonByName(pokemon);
 
             return details;
@@ -27,7 +27,7 @@ function Page() {
       fetchPokemons();
       setLoading(false);
     }
-  }, [userDetails?.liked, fetchPokemonByName]);
+  }, [userDetails?.user?.liked, fetchPokemonByName]);
 
   if (loading) {
     return (
