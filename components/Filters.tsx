@@ -61,7 +61,7 @@ const pokemonAbilities = [
 function Filters() {
   const { handleFilterChange, filters, clearFilters } = useGlobalContext();
   return (
-    <div className="mt-8 px-16 py-4 flex items-center justify-between">
+    <div className="mt-8 px-16 py-4 flex items-center justify-center gap-4">
       <div className="flex flex-wrap gap-4 items-center">
         <Select
           value={filters.type}
