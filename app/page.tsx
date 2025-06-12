@@ -5,6 +5,7 @@ import PokemonCard from "../components/PokemonCard";
 import { useGlobalContext } from "../context/globalContext";
 import { useUser } from "@auth0/nextjs-auth0";
 import { arrowAngleDown } from "../utils/icons";
+import SearchForm from "../components/SearchForm";
 
 export default function Home() {
   const { isLoading } = useUser();
@@ -14,7 +15,9 @@ export default function Home() {
     <main className="bg-amber-200">
       <Header />
 
-      <section>{}</section>
+      <section className="mt-10 flex items-center justify-center">
+        <SearchForm />
+      </section>
 
       <section className="min-h-[91vh] mt-8">
         <div className="px-16  py=8 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
