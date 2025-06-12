@@ -25,8 +25,6 @@ function Page({ params }: { params: Promise<{ id: string }> }) {
     }
   }, [id, fetchPokemonByName]);
 
-  console.log("activePokemon", activePokemon);
-
   return (
     <main>
       <Header />

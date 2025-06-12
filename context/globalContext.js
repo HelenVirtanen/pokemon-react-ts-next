@@ -24,7 +24,6 @@ export const GlobalContextProvider = ({ children }) => {
   const { userDetails, performAction, fetchUserDetails } = useUserData();
 
   useEffect(() => {
-    console.log("User in global context:", user);
     if (user) {
       fetchUserDetails();
     }

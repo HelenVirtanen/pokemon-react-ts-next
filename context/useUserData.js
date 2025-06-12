@@ -12,7 +12,6 @@ export const useUserData = () => {
     try {
       const res = await axios.get(`/user/${user.sub}`);
       setUserDetails(res.data);
-      console.log("Fetched User Details Res DATA",  res.data);
     } catch (error) {
       console.log("Error in fetchUserDetails", error);
     }
@@ -48,7 +47,6 @@ export const useUserData = () => {
         action,
       });
       await fetchUserDetails();
-      console.log("User Details after perform action", userDetails);
     } catch (error) {
       console.log("Error in performAction", error);
       fetchUserDetails(userId);

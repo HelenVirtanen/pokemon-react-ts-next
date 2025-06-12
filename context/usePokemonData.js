@@ -27,7 +27,6 @@ export const usePokemonData = () => {
       setPokemonList((prev) => [...prev, ...res.data.results]);
       setCurrentPage(page);
 
-      console.log(res.data.results);
     } catch (error) {
       console.error(error);
     }
@@ -85,13 +84,11 @@ export const usePokemonData = () => {
       const details = await Promise.all(
         pokemonList.map(async (pokemon) => {
           const res = await axios.get(pokemon.url);
-          console.log("URL", url);
           return res.data;
         })
       );
 
       setPokemonListDetails(details);
-      console.log("DETAILS", pokemonListDetails);
       return;
     }
 
@@ -151,6 +148,7 @@ export const usePokemonData = () => {
     activePokemon,
     allPokemons,
     loadMore,
+    searchQuery,
     handleSearchChange
   };
 };
