@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "@auth0/nextjs-auth0";
 
@@ -12,6 +12,7 @@ export const useUserData = () => {
     try {
       const res = await axios.get(`/user/${user.sub}`);
       setUserDetails(res.data);
+      console.log("Fetched User Details Res DATA", userDetails, res.data);
     } catch (error) {
       console.log("Error in fetchUserDetails", error);
     }
@@ -24,13 +25,13 @@ export const useUserData = () => {
         pokemon,
         action,
       });
-      fetchUserDetails();
+      await fetchUserDetails(); 
+      console.log("User Details after perform action", userDetails);  
     } catch (error) {
       console.log("Error in performAction", error);
+      fetchUserDetails(userId);
     }
   };
-
-  console.log("User Details", userDetails);
 
   return { userDetails, performAction, fetchUserDetails };
 };

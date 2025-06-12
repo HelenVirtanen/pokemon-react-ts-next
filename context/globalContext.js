@@ -16,14 +16,23 @@ export const GlobalContextProvider = ({ children }) => {
     fetchPokemonByName,
     activePokemon,
     loadMore,
-    allPokemons
+    allPokemons,
   } = usePokemonData();
 
   const { userDetails, performAction, fetchUserDetails } = useUserData();
 
   useEffect(() => {
-    if (user) fetchUserDetails();
+    console.log("User in global context:", user);
+    if (user) {
+      fetchUserDetails();
+    }
   }, [user]);
+
+  useEffect(() => {
+    if (userDetails) {
+    console.log("Updated user details in global context:", userDetails);
+  }
+}, [userDetails]);
 
   return (
     <GlobalContext.Provider

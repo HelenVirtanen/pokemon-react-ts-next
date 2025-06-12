@@ -15,19 +15,27 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
   const { performAction, userDetails } = useGlobalContext();
   const router = useRouter();
 
-  const isLiked = userDetails?.liked?.includes(pokemon?.name) || false;
-  const isBookmarked = userDetails?.bookmarks?.includes(pokemon?.name) || false;;
+  const isLiked = userDetails?.user?.liked?.includes(pokemon?.name) || false;
+  const isBookmarked = userDetails?.user?.bookmarks?.includes(pokemon?.name) || false;
+
+  console.log("USER DETAILS", userDetails?.user?.liked);
+  console.log("LIKED", isLiked);
 
   const [liked, setLiked] = React.useState(isLiked);
   const [bookmarked, setBookmarked] = React.useState(isBookmarked);
 
   useEffect(() => {
-    setLiked(isLiked);
-  }, [isLiked]);
+    setLiked(userDetails?.user?.liked?.includes(pokemon?.name) || false);
+    setBookmarked(userDetails?.user?.bookmarks?.includes(pokemon?.name) || false);
+}, [userDetails, pokemon?.name]);
+
+  // useEffect(() => {
+  //   setLiked(isLiked);
+  // }, [isLiked, userDetails]);
   
-  useEffect(() => {
-    setBookmarked(isBookmarked);
-  }, [isBookmarked]);
+  // useEffect(() => {
+  //   setBookmarked(isBookmarked);
+  // }, [isBookmarked, userDetails]);
 
   return (
     <div className="relative p-4 bg-white rounded-xl shadow-sm flex flex-col gap-2">
@@ -45,7 +53,6 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
               if(user?.sub) {
                 setLiked((prev:boolean) => !prev);
                 performAction(user?.sub, pokemon?.name, "like");
-                console.log("LIKED");
               } else {
                 router.push("/auth/login")
               }
@@ -91,6 +98,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
             className="object-contain"
             width={200}
             height={200}
+            priority
           />
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-4">

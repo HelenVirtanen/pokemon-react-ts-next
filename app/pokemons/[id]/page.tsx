@@ -11,8 +11,6 @@ import { Ruler, Weight, Star } from "lucide-react";
 function Page({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState<string | null>(null);
 
-  console.log("Id is:", id);
-
   const { fetchPokemonByName, loading, activePokemon } = useGlobalContext();
 
   useEffect(() => {
