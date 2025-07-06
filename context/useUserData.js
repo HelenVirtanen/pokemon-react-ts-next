@@ -12,6 +12,7 @@ export const useUserData = () => {
     try {
       const res = await axios.get(`/user/${user.sub}`);
       setUserDetails(res.data);
+      console.log("Show user data", user);
     } catch (error) {
       console.log("Error in fetchUserDetails", error);
     }
