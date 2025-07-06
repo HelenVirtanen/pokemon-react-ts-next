@@ -48,7 +48,7 @@ function Header() {
   if (isLoading) return null;
 
   return (
-    <header className="min-h-[10vh] px-16 py-6 w-full bg-white flex justify-between items-center shadow-sm">
+    <header className="min-h-[10vh] px-4 md:px-8 lg:px-16 py-6 w-full bg-white flex flex-wrap justify-between items-center shadow-sm gap-4">
       <Link href="/">
         <Image
           src={"/pokemon--logo.png"}
@@ -59,7 +59,7 @@ function Header() {
         />
       </Link>
       <nav>
-        <ul className="flex items-center gap-8 text-gray-400">
+        <ul className="flex flex-col md:flex-row items-center gap-4 md:gap-6 lg:gap-8 text-gray-400">
           {menu.map((item, index: number) => (
             <li key={index}>
               <Link
