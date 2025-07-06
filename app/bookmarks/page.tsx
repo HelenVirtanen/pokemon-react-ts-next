@@ -38,7 +38,7 @@ function Page() {
   }
 
   return (
-    <main>
+    <main className="bg-orange-300">
       <Header />
 
       {!loading && (
